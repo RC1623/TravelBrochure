@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>アカウント編集</title>
+	<style>
+		body {
+			font-family: 'Arial', sans-serif;
+			background-color: #f0f8ff;
+			margin: 0;
+			padding: 0;
+		}
+
+		header {
+			background-color: #4169e1;
+			color: #fff;
+			padding: 10px;
+			text-align: center;
+		}
+
+		main {
+			max-width: 800px;
+			margin: 20px auto;
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		h1 {
+			margin: 0;
+			flex-grow: 1;
+			/* Allow the h1 to grow and take available space */
+		}
+
+		form {
+			margin-top: 20px;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 5px;
+		}
+
+		input {
+			width: 100%;
+			padding: 8px;
+			margin-bottom: 15px;
+			box-sizing: border-box;
+		}
+
+		button {
+			background-color: #4169e1;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body>
+
+	<header>
+		<h1>アカウント編集</h1>
+	</header>
+	<main>
+		<form th:action="@{/mypage/edit/complete}" method="get">
+			<label for="firstName">姓:</label>
+			<input type="text" id="firstName" name="firstName" th:value="${firstName}" required>
+
+			<label for="lastName">名:</label>
+			<input type="text" id="lastName" name="lastName" th:value="${lastName}" required>
+
+			<label for="accountName">アカウント名:</label>
+			<input type="text" id="accountName" name="accountName" th:value="${accountName}" required>
+
+			<label for="email">メールアドレス:</label>
+			<input type="email" id="email" name="email" th:value="${email}" required>
+
+			<input type="hidden" name="userId" th:value="${userId}">
+			<input type="hidden" name="password" th:value="${password}">
+			<input type="hidden" name="admissionDate" th:value="${admissionDate}">
+
+			<button type="submit">保存</button>
+		</form>
+	</main>
+
+</body>
+
+</html>

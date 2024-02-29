@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>スケジュール編集</title>
+	<style>
+		body {
+			font-family: 'Arial', sans-serif;
+			background-color: #f0f8ff;
+			margin: 0;
+			padding: 0;
+		}
+
+		header {
+			background-color: #4169e1;
+			color: #fff;
+			padding: 10px;
+			text-align: center;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		h1 {
+			margin: 0;
+			flex-grow: 1;
+		}
+
+		#main-logo-container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.main-logo-btn,
+		#mypageBtn {
+			background-color: rgb(255, 255, 255);
+			color: #4169e1;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+
+		#mypageBtn {
+			margin-left: auto;
+		}
+
+		main {
+			max-width: 800px;
+			margin: 20px auto;
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		label {
+			display: block;
+			margin-bottom: 8px;
+		}
+
+		input,
+		textarea {
+			width: 100%;
+			padding: 8px;
+			margin-bottom: 16px;
+			box-sizing: border-box;
+		}
+
+		button {
+			background-color: #4169e1;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body>
+
+	<header>
+		<div id="main-logo-container">
+			<form action="/" method="get">
+				<button type="submit" class="main-logo-btn">旅のしおりアプリ</button>
+			</form>
+		</div>
+		<div id="main-logo-container">
+			<h1>スケジュール編集</h1>
+		</div>
+		<form th:action="@{/mypage}" method="get">
+			<input type="hidden" name="userId" th:value="${creator}">
+			<button type="submit" id="mypageBtn">マイページ</button>
+		</form>
+	</header>
+
+	<main>
+		<div th:each="schedule : ${scheduleList}">
+			<form action="/schedule/edit/complete" method="get">
+				<label for="scheduleTitle">スケジュールタイトル</label>
+				<input type="text" id="scheduleTitle" name="scheduleTitle" th:value="${schedule.scheduleTitle}"
+					required>
+
+				<label for="scheduleStart">開始日時</label>
+				<input type="datetime-local" id="scheduleStart" name="scheduleStart"
+					th:value="${schedule.scheduleStart}" required>
+
+				<label for="scheduleEnd">終了日時</label>
+				<input type="datetime-local" id="scheduleEnd" name="scheduleEnd" th:value="${schedule.scheduleEnd}"
+					required>
+
+				<label for="scheduleMemo">メモ</label>
+				<textarea id="scheduleMemo" name="scheduleMemo" rows="4" th:text="${schedule.scheduleMemo}"></textarea>
+
+				<label for="cost">予算</label>
+				<input type="text" id="cost" name="cost" th:value="${schedule.cost}">
+
+				<input type="hidden" name="scheduleId" th:value="${schedule.scheduleId}">
+				<input type="hidden" name="planId" th:value="${schedule.planId}">
+
+				<button type="submit">更新する</button>
+			</form>
+		</div>
+	</main>
+
+</body>
+
+</html>

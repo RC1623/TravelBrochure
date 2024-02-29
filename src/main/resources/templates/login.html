@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログイン - 旅のプラン</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
+            /* 青と白のベースのデザイン */
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .logo {
+            text-align: left;
+            margin-left: 10px;
+            margin-top: 10px; /* Added margin to the top */
+        }
+
+        .form-container {
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input {
+            padding: 10px;
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4169e1;
+            /* ボタンの背景色 */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .link-container {
+            margin-top: 20px;
+        }
+
+        .link-container button {
+            background-color: #4169e1;
+            /* ボタンの背景色 */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .main-logo-btn {
+            background-color: rgb(255, 255, 255);
+            color: #4169e1;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .link-container button:hover {
+            background-color: #003366;
+            /* ホバー時の背景色 */
+        }
+
+        .link-container a {
+            color: #4169e1;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="logo">
+        <form action="/" method="get">
+            <button type="submit" class="main-logo-btn">旅のしおりアプリ</button>
+        </form>
+    </div>
+
+    <div class="form-container">
+        <h2>ログイン</h2>
+        <form action="/login/complete" method="post">
+            <input type="email" name="email" placeholder="メールアドレス" required>
+            <input type="password" name="password" placeholder="パスワード" required>
+            <button type="submit">ログイン</button>
+        </form>
+        <br>
+        <span th:text="${loginErrorMessage}" style="font-family: Arial, Helvetica, sans-serif;color:red"></span>
+
+        <div class="link-container">
+            <a th:href="@{/signup}">新規登録はこちら</a>
+        </div>
+    </div>
+
+</body>
+
+</html>

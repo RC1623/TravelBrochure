@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>プラン編集</title>
+	<style>
+		body {
+			font-family: 'Arial', sans-serif;
+			background-color: #f0f8ff;
+			margin: 0;
+			padding: 0;
+		}
+
+		header {
+			background-color: #4169e1;
+			color: #fff;
+			padding: 10px;
+			text-align: center;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		h1 {
+			margin: 0;
+			flex-grow: 1;
+		}
+
+		#main-logo-container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.main-logo-btn,
+		#mypageBtn {
+			background-color: rgb(255, 255, 255);
+			color: #4169e1;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+
+		#mypageBtn {
+			margin-left: auto;
+		}
+
+		main {
+			max-width: 800px;
+			margin: 20px auto;
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		label {
+			display: block;
+			margin-bottom: 8px;
+		}
+
+		input,
+		textarea {
+			width: 100%;
+			padding: 8px;
+			margin-bottom: 16px;
+			box-sizing: border-box;
+		}
+
+		button {
+			background-color: #4169e1;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body>
+
+	<header>
+		<div id="main-logo-container">
+			<form action="/" method="get">
+				<button type="submit" class="main-logo-btn">旅のしおりアプリ</button>
+			</form>
+		</div>
+		<div id="main-logo-container">
+			<h1>プラン編集</h1>
+		</div>
+		<form th:action="@{/mypage}" method="get">
+			<input type="hidden" name="userId" th:value="${creator}">
+			<button type="submit" id="mypageBtn">マイページ</button>
+		</form>
+	</header>
+
+	<main>
+		<div th:each="plan : ${planList}">
+			<form action="/plan/edit/complete" method="get">
+				<input type="hidden" name="planId" th:value="${planId}">
+				<input type="hidden" name="creator" th:value="${creator}">
+				<label for="planTitle">プランタイトル</label>
+				<input type="text" id="planTitle" name="planTitle" th:value="${plan.planTitle}" required>
+
+				<label for="planStart">開始日時</label>
+				<input type="datetime-local" id="planStart" name="planStart" th:value="${plan.planStart}" required>
+
+				<label for="planEnd">終了日時</label>
+				<input type="datetime-local" id="planEnd" name="planEnd" th:value="${plan.planEnd}" required>
+
+				<label for="planMemo">メモ</label>
+				<textarea id="planMemo" name="planMemo" rows="4" th:text="${plan.planMemo}"></textarea>
+
+				<button type="submit">更新する</button>
+			</form>
+		</div>
+	</main>
+
+</body>
+
+</html>

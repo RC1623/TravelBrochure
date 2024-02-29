@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プラン削除確認</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #4169e1;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        main {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        form {
+            text-align: center;
+        }
+
+        .plan-delete-btn {
+            background-color: #4169e1;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .link-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .link-container a {
+            color: #4169e1;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>プラン削除確認</h1>
+    </header>
+
+    <main>
+        <p>このプランを削除しますか？</p>
+        <form th:action="@{/plan/delete/complete}" method="post">
+            <input type="hidden" name="planId" th:value="${planId}">
+            <input type="hidden" name="creator" th:value="${creator}">
+            <button type="submit" class="plan-delete-btn">はい、削除します</button>
+        </form>
+        <div class="link-container">
+            <a th:href="@{/plan}">いいえ、キャンセル</a>
+        </div>
+    </main>
+
+</body>
+
+</html>

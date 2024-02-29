@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>新規アカウント登録 - 旅のプラン</title>
+	<style>
+		body {
+			font-family: 'Arial', sans-serif;
+			background-color: #f0f8ff;
+			/* 青と白のベースのデザイン */
+			margin: 0;
+			padding: 0;
+			text-align: center;
+		}
+
+		.form-container {
+			max-width: 400px;
+			margin: 50px auto;
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		input {
+			padding: 10px;
+			margin-bottom: 10px;
+			width: 100%;
+			box-sizing: border-box;
+		}
+
+		button {
+			background-color: #4169e1;
+			/* ボタンの背景色 */
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+
+		.link-container {
+			margin-top: 20px;
+		}
+
+		.link-container a {
+			color: #4169e1;
+			text-decoration: none;
+			background-color: #fff;
+			/* リンクの背景色 */
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+
+		.logo {
+			text-align: left;
+			margin-left: 10px;
+			margin-top: 10px;
+			/* Added margin to the top */
+		}
+
+		.main-logo-btn {
+			background-color: rgb(255, 255, 255);
+			color: #4169e1;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			margin-left: 10px;
+		}
+
+		.link-container a:hover {
+			background-color: #f0f8ff;
+			/* ホバー時の背景色 */
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="logo">
+		<form action="/" method="get">
+			<button type="submit" class="main-logo-btn">旅のしおりアプリ</button>
+		</form>
+	</div>
+
+	<div class="form-container">
+		<h2>新規アカウント登録</h2>
+		<form action="/signup/complete" method="post">
+			<input type="text" name="firstName" placeholder="姓" required>
+			<input type="text" name="lastName" placeholder="名" required>
+			<input type="text" name="accountName" placeholder="アカウント名" required>
+			<input type="email" name="email" placeholder="メールアドレス" required>
+			<input type="password" name="password" placeholder="パスワード" required>
+			<button type="submit">登録</button>
+		</form>
+
+		<div class="link-container">
+			<a th:href="@{/login}">既にアカウントをお持ちの方はこちら</a>
+		</div>
+		<br>
+		<span th:text="${accountNameExistsErrorMessage}" style="font-family: Arial, Helvetica, sans-serif;color:red"></span>
+		<span th:text="${userExistsErrorMessage}" style="font-family: Arial, Helvetica, sans-serif;color:red"></span>
+	</div>
+</body>
+
+</html>

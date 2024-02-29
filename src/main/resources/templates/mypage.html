@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>マイページ</title>
+	<style>
+		body {
+			font-family: 'Arial', sans-serif;
+			background-color: #f0f8ff;
+			margin: 0;
+			padding: 0;
+		}
+
+		header {
+			background-color: #4169e1;
+			color: #fff;
+			padding: 10px;
+			text-align: center;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		h1 {
+			margin: 0;
+			text-align: left;
+		}
+
+		.main-logo-btn {
+			background-color: rgb(255, 255, 255);
+			color: #4169e1;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			margin-left: 10px;
+		}
+
+		main {
+			max-width: 800px;
+			margin: 20px auto;
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		.user {
+			margin-bottom: 20px;
+		}
+
+		.edit-btn {
+			background-color: #4169e1;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			margin-right: 10px;
+		}
+
+		.logout-btn,
+		.withdraw-btn {
+			background-color: rgb(255, 255, 255);
+			color: #4169e1;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			margin-right: 10px;
+		}
+
+		.button-container {
+			display: flex;
+		}
+	</style>
+</head>
+
+<body>
+
+	<header>
+		<div class="logo">
+			<form action="/" method="get">
+				<button type="submit" class="main-logo-btn">旅のしおりアプリ</button>
+			</form>
+		</div>
+		<h1>マイページ</h1>
+		<div class="button-container">
+			<form action="/login" method="get">
+				<button type="submit" class="logout-btn">ログアウト</button>
+			</form>
+			<div th:each="user : ${userList}">
+				<form action="/mypage/delete" method="get">
+					<input type="hidden" name="userId" th:value="${user.userId}">
+					<button type="submit" class="withdraw-btn">退会</button>
+				</form>
+			</div>
+		</div>
+	</header>
+	<main th:each="user : ${userList}">
+		<div class="user">
+			<p th:text="'姓: ' + ${user.firstName}"></p>
+			<p th:text="'名: ' + ${user.lastName}"></p>
+			<p th:text="'アカウント名: ' + ${user.accountName}"></p>
+			<p th:text="'メールアドレス: ' + ${user.email}"></p>
+			<p th:text="'アカウント登録日: ' + ${user.admissionDate}"></p>
+		</div>
+		<form th:action="@{/mypage/edit}" method="get">
+			<input type="hidden" name="userId" th:value="${user.userId}">
+			<input type="hidden" name="firstName" th:value="${user.firstName}">
+			<input type="hidden" name="lastName" th:value="${user.lastName}">
+			<input type="hidden" name="accountName" th:value="${user.accountName}">
+			<input type="hidden" name="email" th:value="${user.email}">
+			<input type="hidden" name="password" th:value="${user.password}">
+			<input type="hidden" name="admissionDate" th:value="${user.admissionDate}">
+			<button type="submit" class="edit-btn">アカウント編集</button>
+		</form>
+	</main>
+
+</body>
+
+</html>

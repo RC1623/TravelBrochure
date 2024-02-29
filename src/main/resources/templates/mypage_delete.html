@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>退会確認</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #4169e1;
+            color: #fff;
+            padding: 10px;
+            text-align: left; /* テキストを左寄せに変更 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            margin: 0;
+            text-align: center; /* テキストを中央に配置 */
+            flex-grow: 1; /* 残りの空間を均等に広げる */
+        }
+
+        #main-logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .main-logo-btn {
+            background-color: rgb(255, 255, 255);
+            color: #4169e1;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        main {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        form {
+            text-align: center;
+        }
+
+        .mypage-delete-btn {
+            background-color: #4169e1;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .link-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .link-container a {
+            color: #4169e1;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div id="main-logo-container">
+            <form action="/" method="get">
+                <button type="submit" class="main-logo-btn">旅のしおりアプリ</button>
+            </form>
+        </div>
+        <h1>退会確認</h1>
+    </header>
+
+    <main>
+        <p>退会しますか？</p>
+        <form th:action="@{/mypage/delete/complete}" method="post">
+            <input type="hidden" name="userId" th:value="${userId}">
+            <button type="submit" class="mypage-delete-btn">はい、退会します</button>
+        </form>
+        <div class="link-container">
+            <a th:href="@{/mypage}">いいえ、キャンセル</a>
+        </div>
+    </main>
+
+</body>
+
+</html>

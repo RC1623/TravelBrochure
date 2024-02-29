@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>旅のプラン</title>
+	<style>
+		body {
+			font-family: 'Arial', sans-serif;
+			background-color: #f0f8ff;
+			margin: 0;
+			padding: 0;
+		}
+
+		header {
+			background-color: #4169e1;
+			color: #fff;
+			padding: 10px;
+			text-align: center;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		h1 {
+			margin: 0;
+		}
+
+		#main-logo-container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.main-logo-btn,
+		#mypageBtn {
+			background-color: rgb(255, 255, 255);
+			color: #4169e1;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+
+		#mypageBtn {
+			margin-left: auto;
+		}
+
+		main {
+			max-width: 800px;
+			margin: 20px auto;
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		.plan {
+			margin-bottom: 20px;
+			padding: 10px;
+			border: 1px solid #ddd;
+			border-radius: 5px;
+			position: relative;
+		}
+
+		.plan-details-btn,
+		.delete-plan-btn,
+		.edit-plan-btn {
+			position: absolute;
+			bottom: 10px;
+			right: 11px;
+			background-color: #4169e1;
+			color: #fff;
+			padding: 5px 10px;
+			border: none;
+			border-radius: 3px;
+			cursor: pointer;
+		}
+
+		.edit-plan-btn {
+			right: 119px;
+		}
+
+		.plan-details-btn {
+			right: 228px;
+		}
+
+		#addPlanBtn {
+			background-color: #4169e1;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			margin-right: 10px;
+			margin-top: 20px;
+		}
+	</style>
+</head>
+
+<body>
+
+	<header>
+		<div id="main-logo-container">
+			<form action="/" method="get">
+				<button type="submit" class="main-logo-btn">旅のしおりアプリ</button>
+			</form>
+		</div>
+		<div id="main-logo-container">
+			<h1>旅のプラン一覧</h1>
+		</div>
+		<form th:action="@{/mypage}" method="get">
+			<input type="hidden" name="userId" th:value="${creator}">
+			<button type="submit" id="mypageBtn">マイページ</button>
+		</form>
+	</header>
+
+	<main th:if="${planList != null}">
+		<div class="plan" th:each="plan:${planList}">
+			<h3 th:text="${plan.planTitle}"></h3>
+			<p th:text="${'プラン開始日： ' + plan.planStart}"></p>
+			<p th:text="${'プラン終了日： ' + plan.planEnd}"></p>
+			<p th:text="${'メモ： ' + plan.planMemo}"></p>
+			<form th:action="@{/plan/delete}" method="get">
+				<input type="hidden" name="planId" th:value="${plan.planId}">
+				<input type="hidden" name="creator" th:value="${plan.creator}">
+				<input type="hidden" name="planTitle" th:value="${plan.planTitle}">
+				<button type="submit" class="delete-plan-btn">プラン削除</button>
+			</form>
+			<form th:action="@{/plan/edit}" method="get">
+				<input type="hidden" name="planId" th:value="${plan.planId}">
+				<input type="hidden" name="creator" th:value="${plan.creator}">
+				<button type="submit" class="edit-plan-btn">プラン編集</button>
+			</form>
+			<form th:action="@{/schedule}" method="get">
+				<input type="hidden" name="planId" th:value="${plan.planId}">
+				<button type="submit" class="plan-details-btn">プラン詳細</button>
+			</form>
+		</div>
+		<form action="/plan/add" method="get">
+			<input type="hidden" name="creator" th:value="${creator}">
+			<button type="submit" id="addPlanBtn">プラン登録</button>
+		</form>
+	</main>
+</body>
+
+</html>
